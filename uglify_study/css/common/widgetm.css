@@ -1,0 +1,8 @@
+/**
+ * 项目定义组件样式
+ */
+ /*dialogStart*/
+ .ui-dialog{
+  background-color: #ffffff;
+  border-radius: 10px;
+ }

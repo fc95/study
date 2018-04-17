@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .red{
+            color:red;
+        }
+    </style>
+    <script>
+      window.onload = function(){
+        const $UserInput =  $('user_input'),
+          $UserInputCopy =  $('user_input_copy'),
+          content = '';
+
+        $UserInput.addEventListener('input',function(e){
+          $UserInputCopy.innerHTML = this.value ;
+        },false)
+        $UserInput.oninput = function(){
+          $UserInputCopy.innerHTML = this.value ;
+        }
+
+        $UserInput.value = content ;
+      };
+
+      const $ = function(id){
+        return document.getElementById(id);
+      }
+
+      const serachKey = function(){
+        const keyword =  $('keyword').value ;
+        var positions = [] , times = 0 , userInputCopyContent =  $('user_input_copy').innerText.trim() ;
+          /*var loop = function(content , key){
+           if(content.indexOf(key) > -1){
+           times++;
+           loop(content.slice(content.indexOf(key) + 1) , key)
+           }
+           }
+           loop(userInputCopyContent , keyword);*/
+        /*(function loop(content , key){
+          if(content.indexOf(key) > -1){
+            positions.push(content.indexOf(key));
+            loop(content.slice(content.indexOf(key) + 1) , key)
+          }
+        })(userInputCopyContent , keyword);*/
+        const reg1  = new RegExp(keyword , 'g') , redKeyword = '<span class="red">' + keyword + '</span>';
+
+        //userInputCopyContent = userInputCopyContent.replace(reg1, redKeyword);
+        //userInputCopyContent = userInputCopyContent.replace(reg1, keyword.fontcolor("blue"));
+        userInputCopyContent = userInputCopyContent.replace(reg1, function(keyword){
+          times++;
+          return keyword.fontcolor("red") ;
+        });
+        $('times').innerHTML = times ;
+        $('user_input_copy').innerHTML = userInputCopyContent ;
+      }
+    </script>
+</head>
+
+<body>
+    <textarea name="user_input" id='user_input' cols="30" rows="10"></textarea>
+    <div id="user_input_copy">
+        全国全国委员安建介绍，
+        全国人大常委会通过了关于授权国务院在实施股票发行注册制改革中调整适用证券法有关规定的决定。
+        目前注册制改革相关准备工作仍在进行， 具体改革举措尚未出台。据此，对现行证券法第二章“证券发行”
+        的规定，暂不作修改，待实施注册制改革授权决定的有关措施出台后，根据实施情况，在下次审议时再对
+        相关内容作统筹考虑。同时，为了做好修订草案与注册制改革授权决定的衔接，体现改革方向和要求，修
+        订草案二审稿增加规定，国务院应当按照全国人大常委会相关授权逐步推进股票发行制度改革
+    </div>
+    <input type="text" id="keyword"/>
+    <button onclick="serachKey()">查询</button>
+    <label>出现次数：</label><span class="times" id="times"></span>
+    <script>
+        var json = {a:1,b:2,c:3,qq:102143}
+
+        function show(a , qq , c){
+          console.log(arguments);
+        }
+        var str = show.toString().split('{')[0].match(/\(.*\)/)[0].replace(/\s+/g,''); //(a,b,c)
+        str = str.substring(1 , str.length - 1) ;
+        var arr = str.split(','),args=[];
+
+        for(var i=0,len=arr.length;i<len;i++){
+          args[i] = json[arr[i]];
+        }
+        show.apply(null,args);
+    </script>
+</body>
+</html>

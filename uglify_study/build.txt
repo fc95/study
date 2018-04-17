@@ -1,0 +1,5 @@
+---------build目录下面---------
+1、node ./prepare.js；========》打包全局的css与js(一般不用)
+2、r.js.cmd -o js.js；打包js（无效）
+==============》 avalonh5打包   
+2、build目录下面 : node r.js -o js.js

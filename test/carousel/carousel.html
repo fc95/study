@@ -1,0 +1,69 @@
+﻿<html>
+	<head>
+		<title>轮播图</title>
+	</head>
+	<style>
+		body,ul{
+			margin: 0;
+			padding: 0;
+		}
+		#index_carousel{
+			width: 100%;
+			height: 300px;
+			overflow: hidden;
+		}
+		@keyframes myfirst
+		{
+			0% {margin-left: 0;}
+			16.6% {margin-left: -100%;}
+			33.2% {margin-left: -200%;}
+			49.8% {margin-left: -300%;}
+			66.4% {margin-left: -200%;}
+			83% {margin-left: -100%;}
+			100% {margin-left: 0;}
+		}
+		@-webkit-keyframes myfirst /* Safari 和 Chrome */
+		{
+			0% {margin-left: 0;}
+			16.6% {margin-left: -100%;}
+			33.2% {margin-left: -200%;}
+			49.8% {margin-left: -300%;}
+			66.4% {margin-left: -200%;}
+			83% {margin-left: -100%;}
+			100% {margin-left: 0;}
+		}
+		#index_carousel ul{
+			list-style: none;
+			width:400%;
+			overflow: hidden;
+			/*transition: all 3s;
+			-moz-transition: all 3s;	!* Firefox 4 *!
+			-webkit-transition: all 3s;	!* Safari 和 Chrome *!
+			-o-transition: all 3s;	!* Opera *!*/
+		}
+		#index_carousel ul li{
+			float: left;
+			width: 25%;
+			text-align: center;
+			background-color: #fff;
+			color: red;
+			font-size: 20px;
+			line-height: 300px;
+		}
+		#index_carousel ul li img{
+			width: 100%;
+			height: auto;
+		}
+
+	</style>
+	<body>
+	<div id="index_carousel">
+	
+	</div>
+	<script src='carousel.js'></script>
+	<script type='text/javascript'>
+		var carousel = new Carousel({root : 'index_carousel' , speed : 2000 } , ['1.png','2.png','3.png','4.png']);
+		carousel.init();
+	</script>
+	</body>
+</html>

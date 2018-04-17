@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/jquery-1.11.3.min.js"></script>
+    <script src="js/template-web.js"></script>
+</head>
+<body>
+    Student
+    <button type="button" onclick="add_student()">添加</button>
+    <ul id="student_list">
+
+    </ul>
+    <form id="up_orin_student">
+
+    </form>
+</body>
+    <script id="tpl-student-list" type="text/html">
+        <% for (var i = 0 ,len = students.length; i < len; i ++) { %>
+        <% var student =students[i]; %>
+        <li>
+            <strong class="student-id"><%=student.id%></strong>
+            <strong class="student-name"><%=student.ename%></strong>
+            <strong class="student-phone"><%=student.ephone%></strong>
+            <button onclick="stu_modify('<%=student%>')">修改</button>
+        </li>
+        <% } %>
+    </script>
+    <script id="tpl-student-form" type="text/html">
+        <span><%=student.id%></span>
+        <input type='hidden' name="id" value='<%=student.id%>'/>
+        <input type='text' name="name" value="<%=student.ename%>" />
+        <input type='text' name="phone" value="<%=student.ephone%>"/>
+        <button type="button" onclick="(function(){console.log('yes');})()">确定</button>
+    </script>
+    <script>
+      $.ajax({
+        url : '/student/list' ,
+        type : 'GET' ,
+        data : {},
+        success : function(resp){
+          if(resp.flag){
+            var data = { 'students' : resp.data };
+            $('#student_list').html(template('tpl-student-list', data));
+          }
+        }
+      });
+    </script>
+    <script>
+      function stu_modify(student) {
+        console.log(student);
+        var data = { student : student};
+        $('#up_orin_student').html(template('tpl-student-form', data));
+      }
+
+      function add_student(){
+        var data = { ename : "hulinyun", ephone : "1324545666X" };
+        $.ajax({
+          url : '/student/add' ,
+          type : 'POST' ,
+          data : data,
+          success : function(resp){
+            if(resp.flag){
+             console.log(resp);
+            }
+          }
+        });
+      }
+    </script>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript">
+      /*window.onload = function () {
+        console.time('测试性能');
+        var aUl = document.getElementById("bubble");
+        var aLi = aUl.getElementsByTagName("li");
+        for(var i = 0;i<aLi.length;i++){
+          aLi[i].onmouseover = function () {
+            this.style.backgroundColor = "blue";
+          };
+          aLi[i].onmouseout = function () {
+            this.style.backgroundColor = "";
+          }
+        }
+        console.timeEnd('测试性能');
+      };*/
+      //如果说我们可能有很多个li用for循环的话就比较影响性能。
+      //下面我们可以用事件委托的方式来实现这样的效果。
+      window.onload = function () {
+        console.time('rendering');
+        var aUl = document.getElementById("bubble");
+
+        //不管在哪个事件中，只要你操作的那个元素就是事件源。
+        // ie：window.event.srcElement
+        // 标准下:event.target
+        aUl.onmouseover = function (ev) {
+          ev = ev || window.event;
+          var target = ev.target || ev.srcElement;
+
+          if(target.nodeName.toLowerCase() === "li"){
+            target.style.background = "blue";
+          }
+        };
+        aUl.onmouseout = function (ev) {
+          ev = ev || window.event;
+          var target = ev.target || ev.srcElement;
+
+          if(target.nodeName.toLowerCase() === "li"){
+            target.style.background = "";
+          }
+        };
+        console.timeEnd('rendering');
+      };
+    </script>
+    <script>
+      //阻止事件冒泡后，你点击灰色盒子，整个过程只弹一次对话框了（注意与默认情况对比）
+      function showMsg(obj,e)
+      {
+        alert(obj.id);
+        stopBubble(e)
+      }
+
+      //阻止事件冒泡函数
+      function stopBubble(e)
+      {
+        if (e && e.stopPropagation)
+          e.stopPropagation()
+        else
+          window.event.cancelBubble=true
+      }
+    </script>
+</head>
+<body>
+<div>
+    <ul id = "bubble">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+    </ul>
+    <div onclick="showMsg(this,event)" id="outSide" style="width:100px; height:100px; background:#000; padding:50px">
+        <div onclick="showMsg(this,event)" id="inSide" style="width:100px; height:100px; background:#CCC"></div>
+    </div>
+    <div id="myDiv" style="width:100px; height:100px; background:#CCC"></div>
+    <script>
+        //-------------------》DOM 2级事件处理程序《-----------------------
+        //指定和删除事件处理程序的操作：addEventListener()和removeEventListener()，他们都接受三个参数
+        /*
+         1.事件名。比如上面的click
+         2.作为事件处理程序的函数。
+         3.布尔值（true表示捕获阶段调用事件处理程序，false表示冒泡阶段）
+         */
+        var btn = document.getElementById('myDiv');
+        btn.addEventListener('click', function (ev) {
+          console.log(this.id);
+          ev.stopPropagation();
+        },false);
+    </script>
+    <script>
+        //-------------------》IE中的事件处理程序《-----------------------
+        //IE9之前的IE浏览器不支持addEventListener()和removeEventListener（）。
+        //与其他浏览器不同的是，IE使用的是attachEvent()和detachEvent()方法来为DOM添加事件处理程序，由于IE8及更早版本只支持事件冒泡，
+        //所以他们只接受两个参数：
+        var btn = document.getElementById('myDiv');
+        /*btn.attachEvent('onclick', function () {
+          console.log(this.id);
+          console.log('---++++_____');
+        });*/
+        //值得注意的是，使用attachEvent()方法的情况下，事件处理程序会在全局作用域中运行，所以，此时this等于window
+    </script>
+    <script>
+        //-------------------》事件对象《-----------------------
+        //在触发DOM上的某个事件时，会产生一个事件对象event，这个对象包含着所有与事件相关的信息。包括导致事件的元素、
+        //事件的类型以及其他与特定事件相关的信息。event对象会被作为第一个参数传递给事件监听的回调函数。
+        // 我们可以通过这个event对象来获取到大量当前事件相关的信息：
+        /*type (String) — 事件的名称
+        target (node) — 事件起源的DOM节点
+        currentTarget?(node) — 当前回调函数被触发的DOM节点（后面会做比较详细的介绍）
+        bubbles (boolean) — 指明这个事件是否是一个冒泡事件（接下来会做解释）
+        preventDefault(function) — 这个方法将阻止浏览器中用户代理对当前事件的相关默认行为被触发。比如阻止<a>元素的click事件加载一个新的页面
+        cancelable (boolean) — 这个变量指明这个事件的默认行为是否可以通过调用event.preventDefault来阻止。
+        stopPropagation (function) — 取消事件的进一步捕获或冒泡，bubbles为true使用这个方法
+        eventPhase：返回一个数字，表示事件目前所处的阶段，0为事件开始从DOM表层向目标元素传播，1为捕获阶段，2为事件到达目标元素，3为冒泡阶段。*/
+        document.body.onclick = function (event) {
+          alert("Body clicked");
+        };
+    </script>
+</div>
+</body>
+</html>

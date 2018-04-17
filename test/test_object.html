@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var log  = console.log.bind(null);
+    //var log = function(){};
+    function Human(){
+      var age = 2 ;
+      var speak = function(){
+        console.log(age);
+      };
+      this.age = age ;
+      this.speak = function(){
+        console.log(this.age);
+      }
+    }
+    var h1 = new Human();
+    h1.age = 100;
+    h1.speak = {};
+    log(h1.age);             //100
+    log(typeof h1.speak);    //object
+    var h2 = new Human();
+    log(h2.age);             //2
+    log(typeof h2.speak);    //function
+    /*
+     在box1中修改了a和fn，而在box2中没有改变，由于数组和函数都是对象，是引用类型，
+     这就说明box1中的属性和方法与box2中的属性与方法虽然同名但却不是一个引用，而是
+     对Box对象定义的属性和方法的一个复制。
+     */
+    /*
+     这个对属性来说没有什么问题，但是对于方法来说问题就很大了，因为方法都是在做完全一样的功能，
+     但是却又两份复制，如果一个函数对象有上千和实例方法，那么它的每个实例都要保持一份上千个方法
+     的复制，这显然是不科学的，这可肿么办呢，prototype应运而生。
+     */
+    /*
+     我们创建的每个函数都有一个prototype属性，这个属性是一个指针，指向一个对象，这个对象的用途是包含可以由特定
+     类型的所有实例共享的属性和方法。那么，prototype就是通过调用构造函数而创建的那个对象实例的原型对象。
+     使用原型的好处是可以让对象实例共享它所包含的属性和方法。也就是说，不必在构造函数中添加定义对象信息，
+     而是可以直接将这些信息添加到原型中。使用构造函数的主要问题就是每个方法都要在每个实例中创建一遍。
+     在JavaScript中,一共有两种类型的值,原始值和对象值。每个对象都有一个内部属性 prototype ,
+     我们通常称之为原型。原型的值可以是一个对象,也可以是null。如果它的值是一个对象，则这个对象也一定有自己的原型。
+     这样就形成了一条线性的链，我们称之为原型链。
+     */
+</script>
+</body>
+</html>

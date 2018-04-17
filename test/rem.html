@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        html,body,h1,h2,h3,h4,h5,h6,ul{
+            margin:0;
+            padding:0;
+        }
+        ul{
+            list-style: none;
+        }
+        ul.float li{
+            float: left;
+        }
+        .clearfix{
+            *zoom: 1;
+        }
+        .clearfix:before,.clearfix:after{
+            display: table;
+            line-height: 0;
+            content: "";
+        }
+        .clearfix:after{
+            clear: both;
+        }
+        .center{
+            text-align: center;
+        }
+        .header{
+            position: fixed;
+            width: 100%;
+            z-index: 999;
+            top: 0;
+            padding: .5rem 0;
+            border-bottom: 1px solid #999;
+        }
+        .content{
+            position: fixed;
+            top: 3.1rem;
+            z-index: 9;
+            bottom: 3.1rem;
+            width: 100%;
+        }
+        .content ul li{
+            width: 100%;
+        }
+        .content ul li .float{
+            float: left;
+            width: 50%;
+        }
+        .content ul li .float img{
+            width: 100%;
+            height: auto;
+        }
+        .footer{
+            position: fixed;
+            width: 100%;
+            z-index: 999;
+            bottom: 0;
+            padding: .8rem 0;
+            border-top: 1px solid #999;
+        }
+        .footer ul li{
+            width: 25%;
+            text-align: center;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header center">
+            <h2>XIAOYA</h2>
+        </div>
+    </header>
+    <div class="content">
+        <ul class="float clearfix">
+            <li>
+                <div class="float"><img src="../image/1.jpg" alt=""></div>
+                <div class="float"><img src="../image/2.jpg" alt=""></div>
+            </li>
+            <li>
+                <div class="float"><img src="../image/1.jpg" alt=""></div>
+                <div class="float"><img src="../image/2.jpg" alt=""></div>
+            </li>
+            <li>
+                <div class="float"><img src="../image/1.jpg" alt=""></div>
+                <div class="float"><img src="../image/2.jpg" alt=""></div>
+            </li>
+            <li>
+                <div class="float"><img src="../image/1.jpg" alt=""></div>
+                <div class="float"><img src="../image/2.jpg" alt=""></div>
+            </li>
+            <li>
+                <div class="float"><img src="../image/1.jpg" alt=""></div>
+                <div class="float"><img src="../image/2.jpg" alt=""></div>
+            </li>
+            <li>
+                <div class="float"><img src="../image/1.jpg" alt=""></div>
+                <div class="float"><img src="../image/2.jpg" alt=""></div>
+            </li>
+            <li>
+                <div class="float"><img src="../image/1.jpg" alt=""></div>
+                <div class="float"><img src="../image/2.jpg" alt=""></div>
+            </li>
+        </ul>
+    </div>
+    <footer>
+        <div class="footer">
+            <ul class="float clearfix">
+                <li>微信</li>
+                <li>通讯录</li>
+                <li>发现</li>
+                <li>我</li>
+            </ul>
+        </div>
+    </footer>
+    <script src="../js/jquery/jquery.min.js"></script>
+    <script src="../js/lib/jquery.nicescroll.js"></script>
+    <script>
+      //动态调整rem值
+	  function getTianMaoData(){
+		console.log('----------开始获取数据----------');
+		$.ajax({
+		  url:'https://rate.tmall.com/list_detail_rate.htm?itemId=44236805503&spuId=323487692&sellerId=631228908&order=3&currentPage=1',
+		  method:'GET',
+		  success:function(data){
+			console.log(data);
+		  
+		  }
+		})
+	  }
+	  getTianMaoData();
+      function resizeRem() {
+        var winEl = $(window),
+          baseFontSize = 50,
+          baseWidth = 1125,
+          winWidthSize = Math.min(winEl.width(), winEl.height());
+        console.log('Jquery原生获取window宽高');
+        console.log(winEl.width());
+        console.log(winEl.height());
+        console.log('原生获取window宽高');
+        console.log(window);
+        console.log(window.innerWidth);
+        console.log(window.innerHeight);
+        if (winWidthSize > 560) {
+          winWidthSize = 560;
+        }
+        if (winWidthSize < 270) {
+          winWidthSize = 270;
+        }
+
+        var isAlipay = /alipay/i.test(navigator.userAgent);
+        var url = window.location.href;
+        if(url.indexOf('mogan') > -1 && url.indexOf('marketingList') > -1 && isAlipay){
+          if(localStorage.frameFontSize){
+            $('html').css({
+              fontSize: localStorage.frameFontSize + 'px'
+            });
+          }else{
+            $('html').css({
+              fontSize: (winWidthSize / baseWidth * baseFontSize) * 4.2 + 'px'
+            });
+            localStorage.frameFontSize = (winWidthSize / baseWidth * baseFontSize) * 4.2;
+          }
+
+        }else{
+          $('html').css({
+            fontSize: winWidthSize / baseWidth * baseFontSize + 'px'
+          });
+        }
+
+      }
+
+      function debounce(idle, action){
+        var last;
+        console.log(this);
+        return function(){
+          var ctx = this, args = arguments;
+          console.log(this);
+          clearTimeout(last);
+          last = setTimeout(function(){
+            action.apply(ctx, args)
+          }, idle)
+        }
+      }
+
+      window.addEventListener('resize',debounce(1000,resizeRem),false);
+
+      resizeRem();
+      $(".content").niceScroll({
+        cursorcolor:"#999",
+        cursorwidth:"3px",
+        background:"#fff",
+        cursorborder:"1px solid #999",
+        cursorborderradius:"5px"
+      });
+      //$(window).resize(resizeRem);
+
+
+</script>
+</body>
+</html>

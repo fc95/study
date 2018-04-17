@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0001, minimum-scale=1.0001, maximum-scale=1.0001, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="icon" href="favicon.png" type="image/x-icon">
+    <title>Demo</title>
+</head>
+
+<body>
+    <div id="root">
+        <app></app>
+    </div>
+    <!-- <div id="loader" class="loading-wrapper">
+        <div class="loading-container"></div>
+    </div> -->
+
+    <script type="text/javascript">
+		var options = [
+			{
+				text:'正餐',
+				child:[
+					{
+						text:'江苏省',
+						child:[
+							{
+								text:'无锡市',
+								child:[
+									{
+										checked: true,
+									},
+									{
+										checked: true,
+									},
+									{
+										checked: false,
+									},
+									{
+										checked: true,
+									},
+								]
+							},
+							{
+								text:'扬州市',
+								child:[
+									{
+										checked: true,
+									},
+									{
+										checked: false,
+									},
+									{
+										checked: false,
+									},
+									{
+										checked: true,
+									},
+								]
+							}
+							
+						],
+						//count: 3,
+					},
+					{
+						text:'山东省',
+						child:[
+							{
+								text:'盐城市',
+								child:[
+									{
+										checked: false,
+									},               
+									{                
+										checked: false,
+									},               
+									{                
+										checked: false,
+									},               
+									{                
+										checked: false,
+									},
+								]
+							},
+							{
+								text:'泰州市',
+								child:[
+									{
+										checked: true,
+									},               
+									{                
+										checked: true,
+									},               
+									{                
+										checked: true,
+									},               
+									{                
+										checked: true,
+									},
+								]
+							},
+							
+						],
+						//count: 4,
+					}
+				],
+				//count: 7,
+			},
+			{
+				text:'轻餐',
+				child:[
+					{
+						text:'浙江省',
+						child:[
+							{
+								text:'南京市',
+								child:[
+									{
+										checked: true,
+									},
+									{
+										checked: false,
+									},
+									{
+										checked: false,
+									},
+									{
+										checked: true,
+									},
+								]
+							
+							}
+							
+						],
+						//count: 2,
+					}
+				],
+				//count: 2,
+			},
+		]
+		
+		//失败版
+		function loopFail(items){
+			if(Array.isArray(items)){
+		  
+				items.forEach(item => {
+				
+				    function loopParent(parent){
+						if(parent.child){
+							let count = 0;
+							parent.child.forEach(element =>{
+								if(element.child){
+									loopParent(element);
+									parent.count = 0;
+									parent.child.forEach(v => {
+										//console.log(v.count);
+										//parent.count += ( v.count || 0 );
+										parent.count += (v.count || 0);
+									})
+								  
+								}else{
+								    if(element.checked){
+									    //parent.count = ( parent.count || 0 ) + 1;
+										count++;
+										
+								    }
+									parent.count = count;
+								}
+							}) 
+							
+							
+						}
+				    }
+				  
+				  loopParent(item);
+				  
+				})  
+			
+			}
+		}  
+		//成功版
+		function loopSuccess(options){
+			if(Array.isArray(options)){
+			
+				options.forEach(option => {
+				
+					function loopParent(options){
+						if(options.child){
+							options.child.forEach(element => {
+								if(element.child){
+									loopParent(element);
+									options.count = 0;
+									options.child.forEach(function(item) {
+										options.count += item.count;
+									});
+								}else{
+									options.count = options.child.filter(item => {
+										return item.checked;
+									}).length;
+								}
+							})
+						}
+					}
+					
+					loopParent(option);
+				})	
+				
+			}
+		}	
+		
+		//大神版
+		function countTrue(options) {
+			options.forEach(function(element) {
+				if (element.child) {
+					countTrue(element.child);
+					options.count = 0;
+					options.forEach(function(item) {
+						options.count += item.child.count;
+					});
+				} else {
+					options.count = options.filter(item => {
+						return item.checked;
+					}).length;
+				}
+			});
+		}
+		
+
+		loopFail(options);
+		console.log('==========', options);
+		
+		//最搓版
+		function simpleLoop(items){
+			items.forEach(v => {
+				if(v.child){
+					let count = 0;
+					v.child.forEach(v => {
+						if(v.child){
+							let count = 0 ;
+							v.child.forEach(v =>{
+								if(v.child){
+									let count = 0 ;
+									v.child.forEach(v =>{
+										if(v.child){
+											
+										}else{
+											//console.log(v);
+											if(v.checked){
+												count++;
+											}
+										}
+									})
+									v.count = count;
+								}
+								count += v.count;
+							})
+							v.count = count;
+						}
+						count += v.count;
+					})
+					v.count = count;
+				}
+			})
+		}
+			
+	</script>
+</body>
+
+</html>
+

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<input id='copy_text' type="text" value="_____+++++1321313">
+<img id='download_img' name='download_img' src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAIAAAD/gAIDAAAB7UlEQVR4nO2cy2rEMAwAu2H//5NDb8U5iGrW0tohM6dCndgMWuGH4td5nj+S41g9gDuhLICyAMoCKAugLICyAO/oH8dR7zEzpxv7pe2riPo1sgDKAigLEOaskZn1Y5RTotw0/h09G42nY5yXNh+//YEoC6AsQCpnjWR+25ncEeWmqnxUNc7LO1Hrh6MsgLIAOGdV0bGm6+Z+I16IsgDKAizLWeGeEdzP+iZGFkBZAGUBcM6qyiOp/SO4n0XbUIwsgLIAygKkclb3Oi6ztzWT46owsgDKAigL8Npu/TUxt+rGyAIoC6AsQEt9Fp0fRc9mxkPnaPS88jKGf1vIH8oCKAuQmmfR9VpH7WjV2DJYU1qAsgDKAoQ5a1UtAs07VXVbzrOKURZAWYBbzrMyz1pTuhhlAZQFaP/esCO/zOxJzdSFGVkAZQGUBVh2bli1Lx69MwPt18gCKAugLMAW9zp01Jdm+vLcsBFlAZQFWHavQ1WNQuadEe5nNaIsgLIAy+516K51iJjq6+MnH4iyAMoCLPtGOkNm3Ret9TLtM32NGFkAZQGUBdgiZ1XVyne0GTGyAMoCKAuw7F6HGTL7XB132hhZAGUBlAXY4l6HGeiZo98bfgllAZQF2O5eh50xsgDKAigLoCyAsgDKAigL8AvPJPmaIQWF0AAAAABJRU5ErkJggg==" alt="">
+<button onclick="copy()">点击</button>
+
+<a href="javascript:;" onclick="document.getElementById('download_img').execCommand('saveAs');">Click Me</a>
+<script>
+    function copy(){
+      var downLoadImg = document.getElementById('download_img');
+      downLoadImg.oncontextmenu =  function(){
+        console.log('111212');
+      }
+      document.execCommand('SaveAs');
+    }
+  /*(function(){
+    //var downLoadImg = document.getElementById('download_img');
+    var downLoadImg = document.getElementById('copy_text');
+    downLoadImg.select();
+    document.execCommand('Copy');
+  }())*/
+</script>
+
+</body>
+</html>

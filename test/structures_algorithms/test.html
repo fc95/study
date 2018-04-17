@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<!--<div style="display: none;">-->
+    <script src="https://s22.cnzz.com/z_stat.php?id=1262434421&web_id=1262434421" language="JavaScript"></script>
+<!--</div>-->
+<script src="stack.js"></script>
+<script src="queue.js"></script>
+<script type="text/javascript">
+
+    /**
+     * @type {Stack}
+     * 栈
+     */
+    const stack = new Stack();
+    stack.push('10').push('20').push('30').pop().pop();
+    console.log(stack.peek());
+    console.log(stack.print());
+
+    /**
+     * @type {Queue}
+     * 队列
+     */
+    const queue = new Queue();
+    queue.enqueue('10').enqueue('20').enqueue('30');
+    queue.dequeue().dequeue().dequeue();
+    console.log(queue.front());
+    console.log(queue.print());
+
+
+</script>
+</body>
+</html>

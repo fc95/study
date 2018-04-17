@@ -1,0 +1,12 @@
+*********************  通过git下载 python 模块 ************************
+
+<<<-------------requests------------->>>
+git clone git://github.com/kennethreitz/requests.git
+cd requests
+
+<<<-------------pandas------------->>>
+git clone git://github.com/pydata/pandas.git
+cd pandas
+
+********************** 切换到对应的目录下 安装模块 ************************
+python setup.py install

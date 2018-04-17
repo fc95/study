@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>水乡小镇-水泗</title>
+    <script src="js/jquery-1.11.3.min.js"></script>
+</head>
+<body>
+    22222222222
+    <a href="student.html">学生管理</a>
+    <a href="teacher.html">老师管理</a>
+    <script>
+        $.ajax({
+          url : '/student/3' ,
+          type : 'GET' ,
+          data : {},
+          success : function(resp){
+            console.log(resp);
+          }
+        })
+    </script>
+</body>
+</html>

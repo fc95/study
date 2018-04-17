@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        html,body{
+            padding: 0;
+            margin: 0;
+        }
+        .drag_container{
+            position: relative;
+            width: 800px;
+            height: 500px;
+            display: inline-block ;
+            left: 100px;
+            top:50px;
+        }
+        .box{
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            cursor: pointer;
+        }
+        .red_box{
+            background-color: red;
+        }
+        .blue_box{
+            background-color: deepskyblue;
+        }
+        .green_box{
+            background-color: lawngreen;
+        }
+    </style>
+    <script>
+        window.onload = function(){
+          var red_box_drag = new Drag('red_box');
+          var blue_box_drag = new Drag('blue_box');
+          var green_box_drag = new Drag('green_box');
+          red_box_drag.init();
+          blue_box_drag.init();
+          green_box_drag.init();
+        };
+
+        function Drag(id){
+          this.obj = document.getElementById(id) ;
+          this.disX = 0 ;
+          this.disY = 0 ;
+        }
+
+        Drag.prototype.init = function(){
+          var _this = this ;
+          this.obj.onmousedown = function (e) {
+            e = e || window.event ;
+            _this.onmousedown(e) ;
+            return false; // 阻止默认事件
+          }
+        };
+
+        Drag.prototype.onmousedown = function (e) {
+          var _this = this ;
+          this.disX = e.clientX - this.obj.offsetLeft ;
+          this.disY= e.clientY - this.obj.offsetTop ;
+          //console.log(this.obj.offsetParent.offsetParent.offsetParent );    //==>null
+          //console.log(this.obj.parentNode.parentNode.parentNode.parentNode.parentNode );    //==>null
+          document.onmousemove = function(e){
+            e = e || window.event ;
+            _this.onmousemove(e);
+          };
+          document.onmouseup = function(){
+            _this.onmouseup();
+          }
+        };
+
+        Drag.prototype.onmousemove = function(e){
+          const parent_obj =  this.obj.offsetParent ;
+          if(e.clientX - this.disX <= 0 ){
+            this.obj.style.left = '0px' ;
+          }else if(e.clientX - this.disX  >= parent_obj.clientWidth - this.obj.clientWidth){
+            this.obj.style.left = (parent_obj.clientWidth - this.obj.clientWidth) + 'px' ;
+          }else{
+            this.obj.style.left = (e.clientX - this.disX) + 'px' ;
+          }
+
+          if(e.clientY - this.disY <= 0 ){
+            this.obj.style.top = '0px' ;
+          }else if(e.clientY - this.disY >= parent_obj.clientHeight - this.obj.clientHeight){
+            this.obj.style.top = (parent_obj.clientHeight - this.obj.clientHeight) + 'px' ;
+          }else{
+            this.obj.style.top = (e.clientY - this.disY) + 'px' ;
+          }
+        };
+
+        Drag.prototype.onmouseup = function(){
+          document.onmousemove = null ;
+          document.onmouseup = null ;
+        }
+    </script>
+</head>
+<body>
+    <div class="drag_container">
+        <div class='box red_box' id="red_box"></div>
+        <div class='box blue_box' id="blue_box"></div>
+        <div class='box green_box' id="green_box"></div>
+    </div>
+</body>
+</html>

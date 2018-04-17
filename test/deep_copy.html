@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script>
+    function deepCopy(obj){
+      if(!isObject(obj) && !isArray(obj)){
+        return;
+      }
+      var target = obj.constructor === Array ? [] : {} ;
+      if(window.JSON){
+        target = JSON.parse(JSON.stringify(obj));
+      }else{
+        for(var key in obj){
+          if(isObject(obj[key]) || isArray(obj[key])){
+            target[key] = deepCopy(obj[key]);
+          }else{
+            target[key] = obj[key] ;
+          }
+        }
+      }
+      return target ;
+    }
+    var initObj = {a:{f:[1,2,4,{h:5,d:3}],a:10} , name: null , d:'asdsad@110.com'} ,
+        targetObj = deepCopy(initObj);
+    //targetObj.a.f[3].h = 20000;
+    console.log(targetObj);
+    console.log(initObj);
+    function isArray(obj) {
+      return Object.prototype.toString.call(obj) === '[object Array]'
+    }
+    function isObject(obj) {
+      return Object.prototype.toString.call(obj) === '[object Object]'
+    }
+    function isString(str) {
+      return typeof str === 'string'
+    }
+    function isNull(nul) {
+      return nul === null
+    }
+    function isUndefined(unde){
+      return unde === undefined
+    }
+    function isNumber(num) {
+      return typeof num === 'number'
+    }
+    function isBoolean(bool) {
+      return typeof bool === 'boolean'
+    }
+</script>
+<body>
+
+</body>
+</html>
