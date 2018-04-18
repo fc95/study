@@ -1,0 +1,7 @@
+<script src="./pub.js"></script>
+<script src="./sub.js"></script>
+<script type="text/javascript">
+  var pub = new Pub()
+  pub.addSub(new Sub(11)).addSub(new Sub(99))
+  pub.notify()
+</script>
