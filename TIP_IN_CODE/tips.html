@@ -1,0 +1,40 @@
+<body>
+  <!-- Vue模板里引入背景图 -->
+  <div class="left-part" :style="{backgroundImage: `url(${require('./image/add-price-buy.png')})`,
+    height: `${diffLabel.previewImgHeight}px`}">
+  </div>
+  <!-- 
+    enctype 属性规定在发送到服务器之前应该如何对表单数据进行编码
+    application/x-www-form-urlencoded：在发送前编码所有字符(默认)(空格被编码为’+’，特殊字符被编码为ASCII十六进制字符)
+    multipart/form-data：不对字符编码。在使用包含文件上传控件的表单时，必须使用该值
+    text/plain：空格转换为 “+” 加号，但不对特殊字符编码。 -->
+  <form action="" method="POST" enctype="multipart/form-data">
+    <label for="file">文件名:</label>
+    <input type="file" name="file" id="file" />
+    <input type="submit" name="submit" value="提交">
+  </form>
+  <!-- Content-Type有哪些? -->
+  <ul>
+    <li>application/x-www-form-urlencoded  =======>  数据被编码为key/value格式，常用于form表单提交</li>
+    <li>multipart/form-data  =======>  文件提交</li>
+    <li>application/json  =======>  JSON格式的数据</li>
+    <li>image/jpeg  =======>  jpeg图片格式</li>
+    <li>text/html  =======>  html格式</li>
+    <li>text/plain  =======> 纯文本格式</li>
+  </ul>
+  <!-- ajax里设置contentType -->
+  <!-- "type": "post",
+  "url": "xycrm-shop-api/shop/modifyAclStoreWithArea",
+  "contentType": "application/json;charset=UTF-8",
+  "data": JSON.stringify({
+    "header": {
+    "ext": "{'source': 1}",
+    },
+    "body": {
+      "activeId": activeId,
+      "type": type
+    }
+  }),
+  "success": (resp) => {} -->
+</body>
+
