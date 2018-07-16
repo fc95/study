@@ -5,7 +5,7 @@
     <title>Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <style>
-        html,body{
+        *{
             margin: 0;
             padding: 0;
         }
@@ -151,10 +151,10 @@
     }
     //document.addEventListener('scroll' , scrool_load ,false) ;
 
-    var time_defer ;
+    var timeDefer ;
     const scrool_defer = function () {
-      clearTimeout(time_defer);
-      time_defer = setTimeout(scrool_load , 100)
+      clearTimeout(timeDefer);
+      timeDefer = setTimeout(scrool_load , 100)
     };
     document.addEventListener('scroll' , scrool_defer ,false) ;
 
