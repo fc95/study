@@ -49,6 +49,27 @@
     function isBoolean(bool) {
       return typeof bool === 'boolean'
     }
+
+    var toString = Object.prototype.toString
+    var hackType = {}
+    var types = ['Array', 'Object', 'String', 'Number', 'Boolean', 'Null', 'Undefined']
+    types.forEach(type => {
+      hackType[`is${type}`] = (param) => {
+        return toString.call(param) === `[object ${type}]`
+      }
+    })
+
+    // class HackType {
+    //   constructor() {
+    //   }
+    //   static init (param, type) {
+    //     // var types = ['Array', 'Object', 'String', 'Null', 'Boolean', 'Undefined']
+    //     // types.forEach(type => {
+    //     return toString.call(param) === `[object ${type}]`
+    //     // })
+    //   }
+    // }
+
 </script>
 <body>
 
