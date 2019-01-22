@@ -18,13 +18,13 @@ http.createServer(function(request ,response){
       });
       res.on('end',function(){
         //console.info(html);
-        response.write('hello world');
+        response.write('hello world222222');
         response.end();
       });
     });
     //response.write('hello,world');
 		//response.end();
 	}
-}).listen(8000);
+}).listen(9000);
 console.log('Server running at http://127.0.0.1:8000');
 
